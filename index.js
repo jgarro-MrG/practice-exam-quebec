@@ -71,32 +71,53 @@ const purchases = [
 
 // #1 // 
 const getNumberEntries = (object) => {
-  
+  let numberEntries = [];
+  for (let key in object) {
+    if (typeof object[key] === 'number') {
+      numberEntries.push([key, object[key]]);
+    }
+  }
+  return numberEntries;
 };
 
 // #2 // 
 const addKeyValuePairs = (object, additions) => {
-  
+  Object.assign(object, Object.fromEntries(additions));
+  return object;
 };
 
 // #3 //
 const filterByPrice = (array, price) => {
-
+  return array.filter(purchase => purchase.price > price);
 };
 
 // #4 //
 const mapPurchases = (array) => {
-  
+  return array
+  .map(purchase => 
+       `${purchase .product.toUpperCase()} - Review: ${purchase.mostLikedReviews[purchase.mostLikedReviews.length -1].text}`);
 };
+
 
 // #5 //
 const accumulateString = (array) => {
-  
+  return array.reduce((acc, purchase) => {
+    let words = purchase.product.split(" ");
+    acc += words[purchase.quantity - 1];
+    return acc;
+  },"");
 };
 
 // #6 //
 const findProduct = (array, product) => {
-  
+  if (array.length === 0) {
+      return [null, null];
+  } 
+  if (array[0].product === product) {
+    return [array[0].product, array[0].category];
+  } else {
+    return findProduct(array.slice(1), product);
+  }
 };
 
 // #7 //
