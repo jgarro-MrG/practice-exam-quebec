@@ -122,7 +122,9 @@ const findProduct = (array, product) => {
 
 // #7 //
 const filterByReviewLength = (array) => {
-  
+  return array
+    .filter(purchase => purchase.mostLikedReviews
+            .some(review => review.text.length > 35));
 };
 
 
